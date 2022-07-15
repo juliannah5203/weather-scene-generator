@@ -1,7 +1,3 @@
-/* exported preload, setup, draw */
-/* global memory, dropper, restart, rate, slider, activeScore, bestScore, fpsCounter */
-/* global p4_inspirations, p4_initialize, p4_render, p4_mutate */
-
 let bestDesign;
 let currentDesign;
 let currentScore;
@@ -22,59 +18,40 @@ function preload() {
     option.innerHTML = insp.name;
     scene.appendChild(option);
   }
-  scene.onchange = e => inspirationChanged(allInspirations[e.target.value]);
+  // scene.onchange = e => inspirationChanged(allInspirations[e.target.value]);
   currentInspiration = allInspirations[0];
 
   confirmButton.onclick = () =>
-    inspirationChanged(allInspirations[scene.value]);
-
-    let allWeathers = weatherChanger();
-
-    for (let i = 0; i < allWeathers.length; i++) {
-      let insp = allWeathers[i];
-    //   insp.image = loadImage(insp.assetUrl);
-      let option = document.createElement("option");
-      option.value = i;
-      option.innerHTML = insp.name;
-      weather.appendChild(option);
-    }
-    // time.onchange = e => timeChanged(allTimes[e.target.value]);
-    // currentTime = allTimes[0];
+  inspirationChanged(allInspirations[scene.value]);
   
-    // confirmButton.onclick = () =>
-    //   timeChanged(allTimes[time.value]);
+  let allWeathers = weatherChanger();
 
-    let allTimes = timeChanger();
+    for (let j = 0; j < allWeathers.length; j++) {
+      let insp = allWeathers[j];
+    //   insp.image = loadImage(insp.assetUrl);
+      let option1 = document.createElement("option");
+      option1.value = j;
+      option1.innerHTML = insp.name;
+      weather.appendChild(option1);
+    }
+   let allTimes = timeChanger();
 
     for (let i = 0; i < allTimes.length; i++) {
       let insp = allTimes[i];
     //   insp.image = loadImage(insp.assetUrl);
-      let option = document.createElement("option");
-      option.value = i;
-      option.innerHTML = insp.name;
-      time.appendChild(option);
+      let option2 = document.createElement("option");
+      option2.value = i;
+      option2.innerHTML = insp.name;
+      time.appendChild(option2);
     }
-    // time.onchange = e => timeChanged(allTimes[e.target.value]);
-    // currentTime = allTimes[0];
-  
-    // confirmButton.onclick = () =>
-    //   timeChanged(allTimes[time.value]);
-
-
 }
 
 function inspirationChanged(nextInspiration) {
   currentInspiration = nextInspiration;
   currentDesign = undefined;
-  memory.innerHTML = "";
+  // memory.innerHTML = "";
   setup();
 }
-// function timeChanged(nextTime) {
-//     currentTime = nextTime;
-//     currentDesign = undefined;
-//     memory.innerHTML = "";
-//     setup();
-//   }
 
 
 
@@ -104,26 +81,26 @@ function evaluate() {
 
 
 function memorialize() {
-  let url = currentCanvas.canvas.toDataURL();
+//   let url = currentCanvas.canvas.toDataURL();
 
-  let img = document.createElement("img");
-  img.classList.add("memory");
-  img.src = url;
-  img.width = width;
-  img.heigh = height;
-  img.title = currentScore;
+//   let img = document.createElement("img");
+  // img.classList.add("memory");
+//   img.src = url;
+//   img.width = width;
+//   img.heigh = height;
+//   img.title = currentScore;
 
-  document.getElementById("best").innerHTML = "";
-  document.getElementById("best").appendChild(img.cloneNode());
+//   document.getElementById("best").innerHTML = "";
+//   document.getElementById("best").appendChild(img.cloneNode());
 
-  img.width = width / 2;
-  img.height = height / 2;
+//   img.width = width / 2;
+//   img.height = height / 2;
 
-  memory.insertBefore(img, memory.firstChild);
+  // memory.insertBefore(img, memory.firstChild);
 
-  if (memory.childNodes.length > memory.dataset.maxItems) {
-    memory.removeChild(memory.lastChild);
-  }
+  // if (memory.childNodes.length > memory.dataset.maxItems) {
+  //   memory.removeChild(memory.lastChild);
+  // }
 }
 
 let mutationCount = 0;
@@ -135,19 +112,19 @@ function draw() {
   }
   randomSeed(mutationCount++);
   currentDesign = JSON.parse(JSON.stringify(bestDesign));
-  rate.innerHTML = slider.value;
-  p4_mutate(currentDesign, currentInspiration, slider.value/100.0);
+  // rate.innerHTML = slider.value;
+  // p4_mutate(currentDesign, currentInspiration, slider.value/100.0);
   
   randomSeed(0);
   p4_render(currentDesign, currentInspiration);
   let nextScore = evaluate();
-  activeScore.innerHTML = nextScore;
+  // activeScore.innerHTML = nextScore;
   if (nextScore > currentScore) {
     currentScore = nextScore;
     bestDesign = currentDesign;
-    memorialize();
-    bestScore.innerHTML = currentScore;
+    // memorialize();
+    // bestScore.innerHTML = currentScore;
   }
   
-  fpsCounter.innerHTML = Math.round(frameRate());
+  // fpsCounter.innerHTML = Math.round(frameRate());
 }
