@@ -18,7 +18,7 @@ function preload() {
     option.innerHTML = insp.name;
     scene.appendChild(option);
   }
-  // scene.onchange = e => inspirationChanged(allInspirations[e.target.value]);
+
   currentInspiration = allInspirations[0];
 
   confirmButton.onclick = () =>
@@ -28,7 +28,6 @@ function preload() {
 
     for (let j = 0; j < allWeathers.length; j++) {
       let insp = allWeathers[j];
-    //   insp.image = loadImage(insp.assetUrl);
       let option1 = document.createElement("option");
       option1.value = j;
       option1.innerHTML = insp.name;
@@ -38,7 +37,6 @@ function preload() {
 
     for (let i = 0; i < allTimes.length; i++) {
       let insp = allTimes[i];
-    //   insp.image = loadImage(insp.assetUrl);
       let option2 = document.createElement("option");
       option2.value = i;
       option2.innerHTML = insp.name;
@@ -56,12 +54,12 @@ function inspirationChanged(nextInspiration) {
 
 
 function setup() {
-  currentCanvas = createCanvas(width, height);
+  currentCanvas = createCanvas(width-10, height);
   currentCanvas.parent(document.getElementById("active"));
   currentScore = Number.NEGATIVE_INFINITY;
   currentDesign = p4_initialize(currentInspiration);
   bestDesign = currentDesign;
-  image(currentInspiration.image, 0,0, width, height);
+  image(currentInspiration.image, 0,0, width-10, height);
   loadPixels();
   currentInspirationPixels = pixels;
 }
@@ -81,26 +79,7 @@ function evaluate() {
 
 
 function memorialize() {
-//   let url = currentCanvas.canvas.toDataURL();
 
-//   let img = document.createElement("img");
-  // img.classList.add("memory");
-//   img.src = url;
-//   img.width = width;
-//   img.heigh = height;
-//   img.title = currentScore;
-
-//   document.getElementById("best").innerHTML = "";
-//   document.getElementById("best").appendChild(img.cloneNode());
-
-//   img.width = width / 2;
-//   img.height = height / 2;
-
-  // memory.insertBefore(img, memory.firstChild);
-
-  // if (memory.childNodes.length > memory.dataset.maxItems) {
-  //   memory.removeChild(memory.lastChild);
-  // }
 }
 
 let mutationCount = 0;
@@ -112,19 +91,14 @@ function draw() {
   }
   randomSeed(mutationCount++);
   currentDesign = JSON.parse(JSON.stringify(bestDesign));
-  // rate.innerHTML = slider.value;
-  // p4_mutate(currentDesign, currentInspiration, slider.value/100.0);
   
   randomSeed(0);
   p4_render(currentDesign, currentInspiration);
   let nextScore = evaluate();
-  // activeScore.innerHTML = nextScore;
   if (nextScore > currentScore) {
     currentScore = nextScore;
     bestDesign = currentDesign;
-    // memorialize();
-    // bestScore.innerHTML = currentScore;
+    
   }
   
-  // fpsCounter.innerHTML = Math.round(frameRate());
 }
