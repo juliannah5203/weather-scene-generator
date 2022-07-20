@@ -67,7 +67,7 @@ function timeChanger() {
 
     return time;
 }
-function p4_initialize(inspiration) {
+function initialize(inspiration) {
   
     let initial = {};
     resizeCanvas(inspiration.image.width/2, inspiration.image.height/2);
@@ -83,7 +83,7 @@ function p4_initialize(inspiration) {
       initial = {opacity:{min: 1, max: 1}, intervals: 75};    
     }
    if (inspiration.name == "Lake Tahoe"){
-      initial = { opacity:{min: 1, max: 1}, intervals: 75};    
+      initial = {opacity:{min: 1, max: 1}, intervals: 75};    
     }
    if (inspiration.name == "Grand Canyon National Park"){
       initial = {opacity:{min: 1, max: 1}, intervals: 75};    
@@ -92,7 +92,7 @@ function p4_initialize(inspiration) {
     return initial;
 }
 
-function p4_render(design, inspiration) {
+function render(design, inspiration) {
   push();
   background(0);
   noStroke();
@@ -134,12 +134,33 @@ function p4_render(design, inspiration) {
 //   return random(rate*mn, rate*mx);
 // }
 
-// function p4_mutate(design, inspiration, rate) {
+function mutate(design, inspiration, time, weather) {
 
-//   design.opacity = opaController(design.opacity, 1, rate);
-//   design.intervals = intController(10, 100, rate);
+  // design.opacity = opaController(design.opacity, 1, rate);
+  // design.intervals = intController(10, 100, rate);
 
 
   
 
-// }
+}
+
+function Drop() {
+  this.x = random(0, width);
+  this.y = random(0, -height);
+  
+  this.show = function() {
+    noStroke();
+    fill(255);
+    ellipse(this.x, this.y, random(1, 7), random(1, 7));   
+  }
+  this.update = function() {
+    this.speed = random(5, 10);
+    this.gravity = 1.05;
+    this.y = this.y + this.speed*this.gravity;  
+    
+    if (this.y > height) {
+      this.y = random(0, -height);
+      this.gravity = 0;
+}
+}
+}
