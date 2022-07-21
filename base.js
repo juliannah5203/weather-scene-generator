@@ -6,6 +6,7 @@ let currentTime;
 let currentWeather;
 let currentCanvas;
 let currentScenePixels;
+let allScenes;
 
 var rain = [];
 let snow = [];
@@ -16,11 +17,12 @@ let cloud = [];
 function preload() {
   
 
-  let allScenes = sceneChanger();
+  allScenes = sceneChanger();
 
   for (let i = 0; i < allScenes.length; i++) {
     let scenes = allScenes[i];
     scenes.image = loadImage(scenes.assetUrl);
+    // scenes.image.resize(1200,800);
     let option = document.createElement("option");
     option.value = i;
     option.innerHTML = scenes.name;
@@ -53,8 +55,16 @@ function preload() {
 
   currentWeather = allWeathers[0];
 
+  submitButton.onclick = () => addScene(imageLink.value);
+
+
+
+
   confirmButton.onclick = () =>
   SceneChanged(allScenes[scene.value], allTimes[time.value], allWeathers[weather.value]);
+
+  
+
 }
 
 function SceneChanged(nextScene, nextTime, nextWeather) {
@@ -65,7 +75,20 @@ function SceneChanged(nextScene, nextTime, nextWeather) {
   currentDesign = undefined;
   setup();
 }
+function addScene(url){
+  let image = createImg(url, "Image"+(allScenes.length).toString());
+  // image.resize(1200,800);
 
+  allScenes.push({name: "Image"+(allScenes.length-1).toString(), assetUrl: image});
+  let scenes = allScenes[allScenes.length-1];
+    scenes.image = image;
+    // scenes.image.resize(1200,800);
+    let option = document.createElement("option");
+    option.value = allScenes.length-1;
+    option.innerHTML = scenes.name;
+    scene.appendChild(option);
+
+}
 
 
 function setup() {
@@ -122,6 +145,7 @@ function evaluate() {
 let mutationCount = 0;
 
 function draw() {
+
   let t = frameCount; 
   
   if(!currentDesign) {
@@ -144,7 +168,6 @@ function draw() {
   }
   if (currentWeather.name == "Snowy"){
     for (let flake of snow) {
-      // flake.update(t); // update snowflake position
       flake.update(t);
       flake.display(); // draw snowflake
     }
@@ -188,29 +211,21 @@ function Rain() {
 }
 }
 
-
-// snowflake class
 function Snow() {
-  // initialize coordinates
   this.posX = random(0, width);
   this.posY = random(0, -height);
   this.initialangle = random(0, 2 * PI);
   this.size = random(1,2);
 
-  // radius of snowflake spiral
-  // chosen so the snowflakes are uniformly spread out in area
   this.radius = sqrt(random(pow(width / 2, 2)));
 
-  // this.update = function(time) {
     this.update = function(time) {
-    // x position follows a circle
     let w = 0.6; // angular speed
     let angle = w * time + this.initialangle;
     this.posX = width / 2 + this.radius * sin(angle);
     this.speed = 10;
     this.gravity = 1.05;
 
-    // different size snowflakes fall at slightly different y speeds
     this.posY += pow(this.size, 0.5) + this.speed * this.gravity;
     
     if (this.posY > height) {
@@ -222,10 +237,9 @@ function Snow() {
   this.display = function() {
     fill(240);
   noStroke();
-    // ellipse(this.posX, this.posY, this.size);
     rotate(PI/5);
     push();
-    rect(this.posX)
+
     rect(this.posX-this.size/4, this.posY-this.size*5/2, this.size/2, this.size*5);
     rect(this.posX-this.size*5/2, this.posY-this.size/4, this.size*5, this.size/2);
     ellipse(this.posX, this.posY, this.size*2);

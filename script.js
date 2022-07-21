@@ -144,10 +144,7 @@ function render(design, inspiration, time) {
             pxColor[2]+=j*9
 
           }
-          
           }
-
-
         }
         if (inspiration.name == "Yosemite National Park" && yCoor < 500){
           if(pxColor[2]>=150 && pxColor[0]<=200){
@@ -224,8 +221,6 @@ function render(design, inspiration, time) {
             }
             
             }
-
-
         }
 
         if (inspiration.name == "Grand Canyon National Park" && yCoor < 350){
@@ -266,8 +261,6 @@ function render(design, inspiration, time) {
           }
           
           }
-
-
         }
 
         if (inspiration.name == "Lake Tahoe" && yCoor < 220){
@@ -344,8 +337,6 @@ function render(design, inspiration, time) {
   
             }
           }
-
-
         }
 
         if (inspiration.name == "Niagara Falls" && yCoor < 200){
@@ -386,29 +377,16 @@ function render(design, inspiration, time) {
           }
           
           }
-
-
         }
-
-        
-        
-       
-        
         // pxColor[3] = random(design.opacity.min, design.opacity.max);
-        // console.log(pxColor[0], pxColor[1], pxColor[2], pxColor[3]);
-        // console.log(pxColor);
         fill(pxColor);
         circle(xCoor, yCoor, 20);
-        // pxColor[4] = random(design.opacity.min, design.opacity.max);
-        // fill(pxColor);
-        // circle(xCoor, yCoor, 20);
+
       }
       yCoor += yStep;
     }
     xCoor += xStep;
   }
-  // filter(GRAY, 2);
-  // filter(POSTERIZE, 2);
   pop();
 
 }
