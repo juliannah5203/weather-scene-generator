@@ -14,6 +14,9 @@ let snow = [];
 let fog = [];
 let cloud = [];
 
+let sun;
+let moon;
+
 function preload() {
   
 
@@ -55,7 +58,7 @@ function preload() {
 
   currentWeather = allWeathers[0];
 
-  submitButton.onclick = () => addScene(imageLink.value);
+  // submitButton.onclick = () => addScene(imageLink.value);
 
 
 
@@ -75,20 +78,20 @@ function SceneChanged(nextScene, nextTime, nextWeather) {
   currentDesign = undefined;
   setup();
 }
-function addScene(url){
-  let image = createImg(url, "Image"+(allScenes.length).toString());
-  // image.resize(1200,800);
+// function addScene(url){
+//   let image = createImg(url, "Image"+(allScenes.length).toString());
+//   // image.resize(1200,800);
 
-  allScenes.push({name: "Image"+(allScenes.length-1).toString(), assetUrl: image});
-  let scenes = allScenes[allScenes.length-1];
-    scenes.image = image;
-    // scenes.image.resize(1200,800);
-    let option = document.createElement("option");
-    option.value = allScenes.length-1;
-    option.innerHTML = scenes.name;
-    scene.appendChild(option);
+//   allScenes.push({name: "Image"+(allScenes.length-1).toString(), assetUrl: image});
+//   let scenes = allScenes[allScenes.length-1];
+//     scenes.image = image;
+//     // scenes.image.resize(1200,800);
+//     let option = document.createElement("option");
+//     option.value = allScenes.length-1;
+//     option.innerHTML = scenes.name;
+//     scene.appendChild(option);
 
-}
+// }
 
 
 function setup() {
@@ -125,8 +128,30 @@ if (currentWeather.name == "Cloudy"){
 
 }
 
+if (currentTime.name == "Sunrise"){
+  sun = new Sun(10, 100,3, -2);
 
 }
+
+if (currentTime.name == "Morning"){
+  sun = new Sun(150, 50,2,-1);
+
+}
+if (currentTime.name == "Afternoon"){
+  sun = new Sun(320, 0, 2, 1);
+
+}
+if (currentTime.name == "Sunset"){
+  sun = new Sun(470, 50, 3, 2);
+
+}
+if (currentTime.name == "Night"){
+  moon = new Moon(230, 15);
+
+}
+}
+
+
 
 function evaluate() {
   loadPixels();
@@ -146,7 +171,11 @@ let mutationCount = 0;
 
 function draw() {
 
+
+
   let t = frameCount; 
+
+
   
   if(!currentDesign) {
     return;
@@ -187,6 +216,18 @@ function draw() {
 
     }
   }
+
+  noStroke();
+  if (currentTime.name == "Night"){
+    moon.update();
+    moon.display();
+
+  }
+  else {
+    sun.update();
+  sun.display();
+  }
+  
   
 }
 
@@ -289,10 +330,63 @@ function Cloud(cloudx, cloudy) {
   ellipse(cloudx - 20, cloudy + 10, size, 20);
   }
   this.update = function() {
-    cloudx += random(5,15);
+    cloudx += random(10,25);
     if (cloudx > width){
       cloudx = 0;
     }
   }
 
+}
+function Sun(posX, posY, incX, incY) {
+  let size = 50;
+  this.x = posX;
+  this.y = posY;
+  this.display = function() {
+    
+    fill(200, 130, 10, 50);
+    ellipse(this.x, this.y, (frameCount % 500)*2, (frameCount % 500)*2);
+    ellipse(this.x, this.y, (frameCount % 500)*4, (frameCount % 500)*4);
+    ellipse(this.x, this.y, (frameCount % 500)*8, (frameCount % 500)*8);
+    ellipse(this.x, this.y, (frameCount % 500)*16, (frameCount % 500)*16);
+    ellipse(this.x, this.y, (frameCount % 500)*24, (frameCount % 500)*24);
+    fill(200, 130, 10,200);
+    ellipse(this.x, this.y, size, size);
+    fill(250, 200, 0,150);
+    ellipse(this.x, this.y, size - 15, size - 15);
+
+  }
+  this.update = function(){
+    this.x += incX;
+    this.y += incY;
+  // this.y += random(0,3);
+  if (this.x >= (posX+100) ) {
+    this.x = posX;
+    this.y = posY;
+  }
+  }
+}
+
+function Moon(posX, posY) {
+  let size = 30;
+  this.x = posX;
+  this.y = posY;
+  let size1 = random(15, 25);
+  this.display = function() {
+ 
+   
+    fill(210, 210, 255,150);
+    ellipse(this.x, this.y, size-4, size-4);
+    fill(10,15, 50);
+    ellipse(this.x+6, this.y, size1 , size1 );
+
+  }
+  this.update = function(){
+    this.x += 2;
+    this.y += 1;
+  // this.y += random(0,3);
+  if (this.x >=(posX+100) ) {
+    this.x = posX;
+    this.y = posY;
+  }
+  }
 }
