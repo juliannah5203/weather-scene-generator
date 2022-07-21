@@ -2,11 +2,12 @@ let bestDesign;
 let currentDesign;
 let currentScore;
 let currentScene;
+let currentTime;
+let currentWeather;
 let currentCanvas;
 let currentScenePixels;
 
 var drop = []
-
 function preload() {
   
 
@@ -21,11 +22,6 @@ function preload() {
     scene.appendChild(option);
   }
 
-  currentScene = allScenes[0];
-
-  confirmScene.onclick = () =>
-  SceneChanged(allScenes[scene.value]);
-
    let allTimes = timeChanger();
 
     for (let i = 0; i < allTimes.length; i++) {
@@ -35,11 +31,6 @@ function preload() {
       option2.innerHTML = times.name;
       time.appendChild(option2);
     }
-      
-    currentTime = allTimes[0];
-
-  confirmTime.onclick = () =>
-  SceneChanged(allTimes[time.value]);
 
   let allWeathers = weatherChanger();
 
@@ -50,14 +41,22 @@ function preload() {
     option3.innerHTML = weathers.name;
     weather.appendChild(option3);
   }
+
+  currentScene = allScenes[0];
+
+  currentTime = allTimes[0];
+
   currentWeather = allWeathers[0];
 
-  confirmWeather.onclick = () =>
-  SceneChanged(allWeathers[weather.value]);
+  confirmButton.onclick = () =>
+  SceneChanged(allScenes[scene.value], allTimes[time.value], allWeathers[weather.value]);
 }
 
-function SceneChanged(nextScene) {
+function SceneChanged(nextScene, nextTime, nextWeather) {
   currentScene = nextScene;
+  currentTime = nextTime;
+  currentWeather = nextWeather;
+  currentTime = nextTime;
   currentDesign = undefined;
   // memory.innerHTML = "";
   setup();
@@ -72,11 +71,15 @@ function setup() {
   currentDesign = initialize(currentScene);
   bestDesign = currentDesign;
   image(currentScene.image, 0,0, width-10, height);
+  console.log(width, height);
   loadPixels();
   currentScenePixels = pixels;
-//   for(var i = 0; i < 200; i++) {
-//     drop[i] = new Drop();
-// }
+  if (currentWeather.name == "Rainy"){
+      for(var i = 0; i < 200; i++) {
+    drop[i] = new Drop();
+}
+  }
+
 }
 
 function evaluate() {
@@ -108,19 +111,22 @@ function draw() {
   // console.log(mutationCount);
   currentDesign = JSON.parse(JSON.stringify(bestDesign));
 
-  // mutate(currentDesign, currentScene, time, weather);
+  // mutate(currentDesign, currentScene, currentTime, currentWeather);
   randomSeed(0);
-  render(currentDesign, currentScene);
+  render(currentDesign, currentScene, currentTime);
   // let nextScore = evaluate();
   // if (nextScore > currentScore) { 
   //   currentScore = nextScore;
     bestDesign = currentDesign;
     
   // }
-  // for(var i = 0; i < 200; i++) {
-  //   drop[i].show();
-  //   drop[i].update();
-  // }
+  if (currentWeather.name == "Rainy"){
+    for(var i = 0; i < 200; i++) {
+    drop[i].show();
+    drop[i].update();
+  }
+  }
+  
   
 }
 
