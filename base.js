@@ -343,16 +343,16 @@ function Sun(posX, posY, incX, incY) {
   this.y = posY;
   this.display = function() {
     
-    fill(200, 130, 10, 50);
+    fill(200, 255, 255, 70);
     ellipse(this.x, this.y, (frameCount % 500)*2, (frameCount % 500)*2);
     ellipse(this.x, this.y, (frameCount % 500)*4, (frameCount % 500)*4);
     ellipse(this.x, this.y, (frameCount % 500)*8, (frameCount % 500)*8);
     ellipse(this.x, this.y, (frameCount % 500)*16, (frameCount % 500)*16);
     ellipse(this.x, this.y, (frameCount % 500)*24, (frameCount % 500)*24);
-    fill(200, 130, 10,200);
+    fill(250, 250, 0,150);
     ellipse(this.x, this.y, size, size);
-    fill(250, 200, 0,150);
-    ellipse(this.x, this.y, size - 15, size - 15);
+    fill(250, 255, 225,250);
+    ellipse(this.x, this.y, size - 7, size - 7);
 
   }
   this.update = function(){
