@@ -108,7 +108,7 @@ function render(design, inspiration, time) {
       
       for (let n = 0; n < 50; n++){
         let pxColor = inspiration.image.get(xCoor+xStep, yCoor+yStep);
-        if (inspiration.name == "Yellowstone National Park" && yCoor < 300){
+        if (inspiration.name == "Yellowstone National Park" && yCoor < 300 && xCoor<950){
           if(pxColor[2]>170){
           
           if (time.name == "Sunrise" ){
@@ -413,56 +413,3 @@ function render(design, inspiration, time) {
 
 }
 
-
-// function opaController(param, mx, rate){
-//   param.max = rate*param.max;
-//   if(param.max < 0.3){
-//     param.max = 0.3 + random(min(rate*param.max,mx));
-//     param.min = 0.1;
-//   }
-//   return param;
-// }
-// function intController(mn, mx, rate){
-//   return random(rate*mn, rate*mx);
-// }
-
-// function mutate(design, inspiration, time, weather) {
-
-//   // design.opacity = opaController(design.opacity, 1, rate);
-//   // design.intervals = intController(10, 100, rate);
-
-// //   if (weather.name == "Rainy"){
-// // //       for(var i = 0; i < 200; i++) {
-// // //     drop[i] = new Drop();
-// // // }
-// //     for(var i = 0; i < 200; i++) {
-// //     drop[i].show();
-// //     drop[i].update();
-// //   }
-// //   }
-
-
-  
-
-// }
-
-function Drop() {
-  this.x = random(0, width);
-  this.y = random(0, -height);
-  
-  this.show = function() {
-    noStroke();
-    fill(255);
-    ellipse(this.x, this.y, random(1, 7), random(1, 7));   
-  }
-  this.update = function() {
-    this.speed = random(5, 10);
-    this.gravity = 1.05;
-    this.y = this.y + this.speed*this.gravity;  
-    
-    if (this.y > height) {
-      this.y = random(0, -height);
-      this.gravity = 0;
-}
-}
-}
