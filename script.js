@@ -28,42 +28,48 @@ function sceneChanger() {
 }
 function weatherChanger() {
   let weather = [];
-
-  weather[0] = {
+ weather[0] = {
+    name:"None"
+  };
+  weather[1] = {
         name: "Sunny"
     };
-  weather[1] = {
+  weather[2] = {
         name: "Rainy"
     };
-  weather[2] = {
+  weather[3] = {
         name: "Cloudy"
     };
-  weather[3] = {
+  weather[4] = {
       name: "Foggy"
   };
-  weather[4] = {
+  weather[5] = {
       name: "Snowy"
   };
+ 
   return weather;
 }
 function timeChanger() {
   let time = [];
-
-  time[0] = {
+time[0] = {
+    name:"None"
+  };
+  time[1] = {
       name: "Sunrise"
     };
-  time[1] = {
+  time[2] = {
       name: "Morning"
     };
-  time[2] = {
+  time[3] = {
       name: "Afternoon"
     };
-  time[3] = {
+  time[4] = {
       name: "Sunset"
   };
-  time[4] = {
+  time[5] = {
       name: "Night"
   };
+  
  
 
     return time;

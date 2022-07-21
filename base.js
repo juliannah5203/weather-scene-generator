@@ -223,7 +223,7 @@ function draw() {
     moon.display();
 
   }
-  else {
+  else if (currentTime.name != "None"){
     sun.update();
   sun.display();
   }
