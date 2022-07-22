@@ -9,4 +9,9 @@ base.js - controlling the main structures including the declaration of all eleme
 options.js - containing all options (including scenes, times, weathers)
 scene-and-time.js - Rendering the main look of the canvas (the scene and the time)
 weather.js - containing all weather subclasses, so they will be ready to call in the base.js
+## Requirements
+Infinite Variations: Scenes, Time, Weathers
+Sign of Life: Sun/Moon Motion
+New Technique: The Weather Overlapping Generation (layers/filters PCG)
+
 
