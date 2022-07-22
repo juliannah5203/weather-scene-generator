@@ -111,11 +111,11 @@ function Rain() {
     this.display = function() {
       
       fill(200, 255, 255, 50);
-      ellipse(this.x, this.y, (frameCount % 500)*2, (frameCount % 500)*2);
-      ellipse(this.x, this.y, (frameCount % 500)*4, (frameCount % 500)*4);
-      ellipse(this.x, this.y, (frameCount % 500)*8, (frameCount % 500)*8);
-      ellipse(this.x, this.y, (frameCount % 500)*16, (frameCount % 500)*16);
-      ellipse(this.x, this.y, (frameCount % 500)*24, (frameCount % 500)*24);
+      ellipse(this.x, this.y, (random(60,100)% 500)*2, (random(50,100) % 500)*2);
+      ellipse(this.x, this.y, (random(60,100) % 500)*4, (random(50,100) % 500)*4);
+      ellipse(this.x, this.y, (random(60,100) % 500)*8, (random(50,100) % 500)*8);
+      ellipse(this.x, this.y, (random(60,100) % 500)*16, (random(50,100) % 500)*16);
+      ellipse(this.x, this.y, (random(60,100) % 500)*24, (random(50,100) % 500)*24);
       fill(250, 250, 0,150);
       ellipse(this.x, this.y, size, size);
       fill(250, 255, 225,250);
