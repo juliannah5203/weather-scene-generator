@@ -74,7 +74,6 @@ function SceneChanged(nextScene, nextTime, nextWeather) {
   currentScene = nextScene;
   currentTime = nextTime;
   currentWeather = nextWeather;
-  currentTime = nextTime;
   currentDesign = undefined;
   setup();
 }
@@ -96,10 +95,9 @@ function SceneChanged(nextScene, nextTime, nextWeather) {
 
 function setup() {
   currentCanvas = createCanvas(width-10, height);
-  currentCanvas.parent(document.getElementById("active"));
-  currentScore = Number.NEGATIVE_INFINITY;
+
   currentDesign = initialize(currentScene);
-  bestDesign = currentDesign;
+  // bestDesign = currentDesign;
   image(currentScene.image, 0,0, width-10, height);
   loadPixels();
   currentScenePixels = pixels;
@@ -153,21 +151,6 @@ if (currentTime.name == "Night"){
 
 
 
-function evaluate() {
-  loadPixels();
-
-  let error = 0;
-  let n = pixels.length;
-  
-  for (let i = 0; i < n; i++) {
-    error += sq(pixels[i] - currentScenePixels[i]);
-  }
-  return 1/(1+error/n);
-}
-
-
-
-let mutationCount = 0;
 
 function draw() {
 
@@ -180,13 +163,9 @@ function draw() {
   if(!currentDesign) {
     return;
   }
-  randomSeed(mutationCount++);
-  currentDesign = JSON.parse(JSON.stringify(bestDesign));
-
-  randomSeed(0);
+  
   render(currentDesign, currentScene, currentTime);
- 
-    bestDesign = currentDesign;
+
     
 
   if (currentWeather.name == "Rainy"){

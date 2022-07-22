@@ -110,7 +110,7 @@ function Rain() {
     this.y = posY;
     this.display = function() {
       
-      fill(200, 255, 255, 70);
+      fill(200, 255, 255, 50);
       ellipse(this.x, this.y, (frameCount % 500)*2, (frameCount % 500)*2);
       ellipse(this.x, this.y, (frameCount % 500)*4, (frameCount % 500)*4);
       ellipse(this.x, this.y, (frameCount % 500)*8, (frameCount % 500)*8);
