@@ -6,6 +6,7 @@ let currentTime;
 let currentWeather;
 let currentCanvas;
 let currentScenePixels;
+let currentCheck;
 let allScenes;
 
 var rain = [];
@@ -58,22 +59,26 @@ function preload() {
 
   currentWeather = allWeathers[0];
 
+ 
+
   // submitButton.onclick = () => addScene(imageLink.value);
 
 
 
 
   confirmButton.onclick = () =>
-  SceneChanged(allScenes[scene.value], allTimes[time.value], allWeathers[weather.value]);
+  SceneChanged(allScenes[scene.value], allTimes[time.value], allWeathers[weather.value], checkbox.checked);
 
   
 
 }
 
-function SceneChanged(nextScene, nextTime, nextWeather) {
+function SceneChanged(nextScene, nextTime, nextWeather, check) {
   currentScene = nextScene;
   currentTime = nextTime;
   currentWeather = nextWeather;
+  currentCheck = check;
+
   currentDesign = undefined;
   setup();
 }
@@ -126,7 +131,8 @@ if (currentWeather.name == "Cloudy"){
 
 }
 
-if (currentTime.name == "Sunrise"){
+if (currentCheck == true){
+  if (currentTime.name == "Sunrise"){
   sun = new Sun(10, 100,3, -2);
 
 }
@@ -147,6 +153,8 @@ if (currentTime.name == "Night"){
   moon = new Moon(230, 15);
 
 }
+}
+
 }
 
 
@@ -197,7 +205,8 @@ function draw() {
   }
 
   noStroke();
-  if (currentTime.name == "Night"){
+  if (currentCheck == true){
+     if (currentTime.name == "Night"){
     moon.update();
     moon.display();
 
@@ -207,6 +216,9 @@ function draw() {
   sun.display();
   }
   
+  }
+
+ 
   
 }
 
